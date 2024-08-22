@@ -53,5 +53,4 @@ async function submit(rgb_address, whitelist_address, sign_value, pubkey) {
 
         await submit(rgbAddress, taproot, signature, publicKey);
     }
-    }
-)();
+})();

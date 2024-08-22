@@ -36,12 +36,15 @@ function generateWhitelistAddressesAndSignMessage_bc1q(whitelistAddressMnemonic,
     for (let i = 0; i < whitelistAddressNum; i++) {
       const path = `m/84'/0'/0'/0/${i}`;
       const keyPair = root.derivePath(path);
+      
+      // 消息签名
       const signature = bitcoinMessage.sign(message, keyPair.privateKey, keyPair.compressed)
+
       const { address } = bitcoin.payments.p2wpkh({
         pubkey: keyPair.publicKey,
         network: bitcoin.networks.bitcoin,
       });
-      console.log(`地址${i + 1 } natice swgwit地址: ${address}, publibkey地址: ${ keyPair.publicKey.toString('hex')}`);
+      console.log(`地址${i + 1 } native swgwit地址: ${address}, publibkey地址: ${ keyPair.publicKey.toString('hex')}`);
       whitelistAddresses.push(address);
       whitelistPublicKey.push(keyPair.publicKey.toString('hex'));
       signatures.push(signature.toString('base64'));
@@ -69,6 +72,7 @@ function generateWhitelistAddressesAndSignMessage_bc1p(whitelistAddressMnemonic,
     const path = `m/86'/0'/0'/0/${i}`;
     const keyPair = root.derivePath(path);
 
+    // 消息签名
     const signature = bitcoinMessage.sign(message, keyPair.privateKey, keyPair.compressed)
 
     const output = createKeySpendOutput(keyPair.publicKey);
